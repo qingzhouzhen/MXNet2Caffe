@@ -13,7 +13,7 @@ def data(txt_file, info):
   txt_file.write('\n')
 
 def Convolution(txt_file, info):
-  if info['param']['no_bias'] == 'True':
+  if info['attrs']['no_bias'] == 'True':
     bias_term = 'false'
   else:
     bias_term = 'true'  
@@ -23,11 +23,11 @@ def Convolution(txt_file, info):
   txt_file.write('	name: "%s"\n'         % info['top'])
   txt_file.write('	type: "Convolution"\n')
   txt_file.write('	convolution_param {\n')
-  txt_file.write('		num_output: %s\n'   % info['param']['num_filter'])
-  txt_file.write('		kernel_size: %s\n'  % info['param']['kernel'].split('(')[1].split(',')[0]) # TODO
-  txt_file.write('		pad: %s\n'          % info['param']['pad'].split('(')[1].split(',')[0]) # TODO
-  txt_file.write('		group: %s\n'        % info['param']['num_group'])
-  txt_file.write('		stride: %s\n'       % info['param']['stride'].split('(')[1].split(',')[0])
+  txt_file.write('		num_output: %s\n'   % info['attrs']['num_filter'])
+  txt_file.write('		kernel_size: %s\n'  % info['attrs']['kernel'].split('(')[1].split(',')[0]) # TODO
+  txt_file.write('		pad: %s\n'          % info['attrs']['pad'].split('(')[1].split(',')[0]) # TODO
+  txt_file.write('		group: %s\n'        % info['attrs']['num_group'])
+  txt_file.write('		stride: %s\n'       % info['attrs']['stride'].split('(')[1].split(',')[0])
   txt_file.write('		bias_term: %s\n'    % bias_term)
   txt_file.write('	}\n')
   if 'share' in info.keys() and info['share']:  
@@ -96,7 +96,7 @@ def ElementWiseSum(txt_file, info):
   pass
 
 def Pooling(txt_file, info):
-  pool_type = 'AVE' if info['param']['pool_type'] == 'avg' else 'MAX'
+  pool_type = 'AVE' if info['attrs']['pool_type'] == 'avg' else 'MAX'
   txt_file.write('layer {\n')
   txt_file.write('  bottom: "%s"\n'       % info['bottom'][0])
   txt_file.write('  top: "%s"\n'          % info['top'])
@@ -104,9 +104,9 @@ def Pooling(txt_file, info):
   txt_file.write('  type: "Pooling"\n')
   txt_file.write('  pooling_param {\n')
   txt_file.write('    pool: %s\n'         % pool_type)       # TODO
-  txt_file.write('    kernel_size: %s\n'  % info['param']['kernel'].split('(')[1].split(',')[0])
-  txt_file.write('    stride: %s\n'       % info['param']['stride'].split('(')[1].split(',')[0])
-  txt_file.write('    pad: %s\n'          % info['param']['pad'].split('(')[1].split(',')[0])
+  txt_file.write('    kernel_size: %s\n'  % info['attrs']['kernel'].split('(')[1].split(',')[0])
+  txt_file.write('    stride: %s\n'       % info['attrs']['stride'].split('(')[1].split(',')[0])
+  # txt_file.write('    pad: %s\n'          % info['attrs']['pad'].split('(')[1].split(',')[0])
   txt_file.write('  }\n')
   txt_file.write('}\n')
   txt_file.write('\n')
@@ -120,7 +120,7 @@ def FullyConnected(txt_file, info):
   txt_file.write('  name: "%s"\n'       % info['top'])
   txt_file.write('  type: "InnerProduct"\n')
   txt_file.write('  inner_product_param {\n')
-  txt_file.write('    num_output: %s\n' % info['param']['num_hidden'])
+  txt_file.write('    num_output: %s\n' % info['attrs']['num_hidden'])
   txt_file.write('  }\n')
   txt_file.write('}\n')
   txt_file.write('\n')

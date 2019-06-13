@@ -1,13 +1,15 @@
 import sys, argparse
-import find_mxnet, find_caffe
+caffe_root='/data0/hhq/project/caffe-master/'
+import sys
+sys.path.insert(0, caffe_root+'python')
 import mxnet as mx
 import caffe
 
 parser = argparse.ArgumentParser(description='Convert MXNet model to Caffe model')
-parser.add_argument('--mx-model',    type=str, default='model_mxnet/residual')
-parser.add_argument('--mx-epoch',    type=int, default=0)
-parser.add_argument('--cf-prototxt', type=str, default='model_caffe/deploy.prototxt')
-parser.add_argument('--cf-model',    type=str, default='model_caffe/residual.caffemodel')
+parser.add_argument('--mx-model',    type=str, default='model_mxnet/ped_light_classify_night')
+parser.add_argument('--mx-epoch',    type=int, default=100)
+parser.add_argument('--cf-prototxt', type=str, default='model_caffe/ped_light_classify_night.prototxt')
+parser.add_argument('--cf-model',    type=str, default='model_caffe/ped_light_classify_night.caffemodel')
 args = parser.parse_args()
 
 # ------------------------------------------
@@ -17,7 +19,7 @@ net = caffe.Net(args.cf_prototxt, caffe.TRAIN)
 
 # ------------------------------------------
 # Convert
-all_keys = arg_params.keys() + aux_params.keys()
+all_keys = list(arg_params.keys()) + list(aux_params.keys())
 all_keys.sort()
 
 print('----------------------------------\n')
