@@ -2,6 +2,9 @@
 
 You are welcome to file issues either for bugs in the source code, feature requests!
 
+## fit to python3
+
+forked from https://github.com/cypw/MXNet2Caffe and fit it to python3
 
 ## Brief Guide
 
